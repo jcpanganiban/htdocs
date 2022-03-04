@@ -43,6 +43,21 @@
   <link rel="stylesheet" href="../css/navbar.css" type="text/css" />
   <link rel="stylesheet" href="../css/index.css" type="text/css" />
   <link rel="stylesheet" href="../css/order.admin.css" type="text/css" />
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+  </script>
+
+  <script>
+  // jquery code
+  $(document).ready(function() {
+    $("form").submit(function() {
+      // Print the value of the button that was clicked
+      var x = $(document.activeElement).attr('id').val()
+      console.log(x);
+    });
+  });
+  </script>
 </head>
 <?php
   include "../includes/header-admin.inc.php"
@@ -55,10 +70,26 @@
           <th>Date</th>
           <th>Earnings</th>
         </tr>
-        <tr>
-          <td id="date">Sample Date</td>
-          <td id="earnings">P 6969</td>
-        </tr>
+        <?php
+          require "../includes/dbh.inc.php";
+          $sql = "SELECT * FROM orders";
+          $result = mysqli_query($conn, $sql);
+          $resultCheck = mysqli_num_rows($result);
+          if($resultCheck > 0){
+            
+            while($row = mysqli_fetch_assoc($result)){
+              $id= $row['ordId'];
+              // echo $id;
+              echo "<tr><td>".$row['currDate']."</td>
+              <td>".$row['payment']."</td></tr>";
+              // foreach($row as $loopdata){
+              //   echo "xd";
+              // }
+            }
+          }
+        
+        ?>
+
       </table>
     </div>
     <div class="orders">
@@ -67,6 +98,7 @@
           
         ?>
         <tr>
+          <th>ID</th>
           <th>Username</th>
           <th>Orders</th>
           <th>Date</th>
@@ -91,25 +123,54 @@
               echo "success";
               }
             }
+            
             while($row = mysqli_fetch_assoc($result)){
               $id= $row['ordId'];
               echo $id;
-              echo "<tr>
+              echo "<tr id=".$id.">
+              <td>".$row['ordId']."</td>
               <td>".$row['username']."</td>
               <td>".$row['orders']."</td>
               <td>".$row['compDateTime']."</td>
               <td>".$row['payment']."</td>
               <td>".$row['orderState']."</td>
-              <td><form method='POST'><button id='pending' name='pending'>Pending</button><button id='ready' name='ready'>Ready</button><button
-              id='purchased' name='purchased'>Purchased</button><button id='terminate' name='terminate'>Terminate</button></form></td>
+              <td>
+              <form id='statusBtns' method='POST'>
+              <button id='pen".$id."' name='pending' class='pending' onclick='test(".$id.")'>Pending</button>
+
+              <button id='ready' class='ready' name='rea".$id." value='rea".$id."'>Ready</button>
+
+              <button
+              id='pur".$id."' class='purchased' name='purchased'>Purchased</button>
+
+              <button id='ter".$id."' class='terminate'  name='terminate'>Terminate</button></td>
+              </form>
               </tr>";
-              if(isset($_POST['terminate'])){
-                $sql1 = "UPDATE orders SET orderState = 'd' WHERE orders.ordId = ".$id;
-                mysqli_query($conn, $sql1);
-                echo "success";
-              }
-            }
+              // if(isset($_POST['rea2'])){
+              // require "../includes/dbh.inc.php";
+              // $sql1 = "UPDATE orders SET orderState = 'ready' WHERE orders.ordId = "."2";
+              // mysqli_query($conn, $sql1);
+              // echo "success";
+              // }
+          }}
+          echo $id."asdfasdf";
+          // function pending($id){
+          if(isset($_POST['pending'])){
+            // require "../includes/dbh.inc.php";
+            // $sql1 = "UPDATE orders SET orderState = 'pending' WHERE orders.ordId = ".$id;
+            // mysqli_query($conn, $sql1);
+            // echo "success";
+          // }
           }
+          // function ready($id){
+            
+          // }
+          // if(isset($_POST['rea2'])){
+          //   require "../includes/dbh.inc.php";
+          //   $sql1 = "UPDATE orders SET orderState = 'ready' WHERE orders.ordId = ".$id;
+          //   mysqli_query($conn, $sql1);
+          //   echo "success";
+          // }
         
         ?>
 
@@ -122,5 +183,6 @@
 </div>
 <footer class="footer"></footer>
 </body>
+<script src="../js/order.admin.js"></script>
 
 </html>
