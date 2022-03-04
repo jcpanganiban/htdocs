@@ -50,19 +50,19 @@ td {
 #earnings {
   color: white;
 }
-#ready {
+.ready {
   border-radius: 5px;
   background-color: yellow;
 }
-#purchased {
+.purchased {
   border-radius: 5px;
   background-color: green;
 }
-#terminate {
+.terminate {
   border-radius: 5px;
   background-color: red;
 }
-#pending {
+.pending {
   border-radius: 5px;
   background-color: rgb(199, 184, 184);
 }
