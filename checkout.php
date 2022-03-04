@@ -99,16 +99,19 @@ $_SESSION['totalPrice'] = $totalPrice;
   // jquery code
   $(document).ready(function() {
     $("#checkout-btn").click(function() {
-      // $.ajax({
-      //   url: 'placeorder.php'
-      // });
-      $.ajax(
-        // type: "POST",
-        "placeorder.php",
-        function() {
-          alert('ok');
+      $.ajax({
+        url: "placeorder.php",
+        success: function(result) {
+          $(".right-content").html(result);
         }
-      );
+      });
+      // $.ajax(
+      //   // type: "POST",
+      //   "placeorder.php",
+      //   function() {
+      //     alert('ok');
+      //   }
+      // );
     })
   })
   </script>
