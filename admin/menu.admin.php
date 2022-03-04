@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Qbyte Online Cake Shop</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qbyte Online Cake Shop</title>
 
-  <link rel="stylesheet" href="../css/variables.css" type="text/css" />
-  <link rel="stylesheet" href="../css/navbar.css" type="text/css" />
-  <link rel="stylesheet" href="../css/index.css" type="text/css" />
-  <link rel="stylesheet" href="../css/admin.index.css" type="text/css" />
-  <link rel="stylesheet" href="../css/menu.admin.css" type="text/css" />
-  <script src="https://kit.fontawesome.com/b57fb6654c.js" crossorigin="anonymous"></script>
-</head>
-<?php
-  include "../includes/header-admin.inc.php"
-?>
+    <link rel="stylesheet" href="../css/variables.css" type="text/css" />
+    <link rel="stylesheet" href="../css/navbar.css" type="text/css" />
+    <link rel="stylesheet" href="../css/index.css" type="text/css" />
+    <link rel="stylesheet" href="../css/admin.index.css" type="text/css" />
+    <link rel="stylesheet" href="../css/menu.admin.css" type="text/css" />
+    <script src="https://kit.fontawesome.com/b57fb6654c.js" crossorigin="anonymous"></script>
+    <script defer>
+      function selectCat() {
+        alert("Hello World");
+
+        var catSelectVal = document.getElementById("catSelect").value;
+        $(document).ready(function() {
+          $.ajax({
+            url: "./showProductPrice.php",
+            method: "POST",
+            data: {
+              id: catSelectVal,
+            },
+            success: function(data) {
+              $("#try").html(data); //
+            },
+            error: function(error) {
+              alert("error" + eval(error));
+            }
+        });
+      }
+    </script>
+
+  </head>
+  <?php
+    include "../includes/header-admin.inc.php";
+    require "../includes/functions.inc.php";
+
+  ?>
 <div class="bg-img">
   <div class="main-admin">
     <div class="main-admin-heading">
@@ -49,41 +73,25 @@
       </form>
     </div>
     <hr>
-    <div class="menu-content">
-      <div class="col-1 category">
-        <div class="catName">Category</div>
-        <div class="catEntry">
-          <select name="" id="catSelect" class="">
-            <?php
-              require "../includes/functions.inc.php";
-              catdb();
-            ?>
-          </select>
-        </div>
-      </div>
-      <div class="col-2 products">
-        <div class="prodName">Products</div>
-        <div class="prodEntry">
-          <!-- <div class="prodText">Product Entry</div>
-          <div class="prodText">Product Entry</div>
-          <div class="prodText">Product Entry</div>
-          <div class="prodText">Product Entry</div> -->
+    <label for="">Please select a category:</label>
+    <select id="catSelect">
+      <?php
+        catdb();
+      ?>
+    </select>
+    <div class="menu-content" id="menu-content">
+      <table>
+        <thead>
+          <!-- <th>Id</th> -->
+          <th>Picture</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+        </thead>
+        <tbody id="try">
 
-        </div>
-      </div>
-      <div class="col-3 price">
-        <div class="priceName">Price</div>
-        <div class="priceEntry">
-          <!-- <div class="priceText">Price Entry</div>
-          <div class="priceText">Price Entry</div>
-          <div class="priceText">Price Entry</div>
-          <div class="priceText">Price Entry</div> -->
-          <?php
-            require "../includes/functions.inc.php";
-            descdb("proDesc");
-          ?>
-        </div>
-      </div>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -94,7 +102,7 @@
 <script src="../js/index.js"></script>
 <script src="../js/navbar.js"></script>
 <script src="../js/menu.admin.js">
-  <?php
+<?php
     require "../includes/functions.inc.php";
     catdb("cat");
   ?>

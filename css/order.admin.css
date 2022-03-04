@@ -2,7 +2,7 @@
 
 .main-admin {
   padding: 10%;
-  height: 100vh;
+  height: max-content;
 }
 
 .content .bg-img {
@@ -10,6 +10,7 @@
   padding: 0;
   background: var(--contentColor) url("../img/bg-img.jpg") no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   display: block;
   gap: 0 10%;
   z-index: -999;
@@ -33,7 +34,7 @@ table {
   min-width: 50%;
   width: 100%;
   color: var(--contentColor);
-  background-color: var(--heroColor);
+  border-color: red;
   text-align: left;
   border-collapse: collapse;
   margin-bottom: 20px;
@@ -41,10 +42,13 @@ table {
 th {
   border: 1px white solid;
   background-color: brown;
+  text-align: center;
 }
 td {
   background-color: var(--footerColor);
   color: black;
+  border: brown 0.5px solid;
+  text-align: center;
 }
 #date,
 #earnings {
@@ -72,4 +76,7 @@ td {
 #terminate:hover {
   color: white;
   cursor: pointer;
+}
+#idOrd {
+  width: 40%;
 }

@@ -229,11 +229,12 @@ function emptyInputReset($email) {
 //   }
 // }
 
-function catdb($cat){
+function catdb(){
   require "../includes/dbh.inc.php";
   $sql = "SELECT proCat FROM products;";
-  $sql = "SELECT * FROM products WHERE proCat = $cat;";
   $result = mysqli_query($conn, $sql);
+  echo "<option>Select Category</option>";
+  
   while($row = mysqli_fetch_assoc($result)){
     // echo $row['proName'];
     echo "<option value='".$row['proCat']."'>".$row['proCat']."</option>";
@@ -252,23 +253,38 @@ function namedb($id){
 
 // Working output through elements in db
 function descdb($category){
-  require ".../includes/dbh.inc.php";
-  $sql = "SELECT $category FROM products;";
+  require "../includes/dbh.inc.php";
+  // $sql = "SELECT proDesc FROM products WHERE proCat =".$category.";";
+  $sql = "SELECT proDesc FROM products WHERE proCat ='" . $category . "';";
   $result = mysqli_query($conn, $sql);
+  // print_r($result['num_rows']);
+  // print_r($row = mysqli_fetch_assoc($result));
   while($row = mysqli_fetch_assoc($result)){
     // echo $row['proDesc'];
-    print_r($row['proPrice']."<br>");
+    print_r($row['proDesc']);
   }
 }
 
-function pricedb($id){
+function pricedb($category){
   require "../includes/dbh.inc.php";
-  $sql = "SELECT * FROM products WHERE proId='$id'";
+  $sql = "SELECT proPrice FROM products WHERE proCat ='" . $category . "';";
   $result = mysqli_query($conn, $sql);
+  // print_r($result['num_rows']);
+  // print_r($row = mysqli_fetch_assoc($result));
   while($row = mysqli_fetch_assoc($result)){
-    echo $row['proPrice'];
+    // echo $row['proDesc'];
+    print_r($row['proPrice']);
   }
 }
+
+// function pricedb($id){
+//   require "../includes/dbh.inc.php";
+//   $sql = "SELECT * FROM products WHERE proId='$id'";
+//   $result = mysqli_query($conn, $sql);
+//   while($row = mysqli_fetch_assoc($result)){
+//     echo $row['proPrice'];
+//   }
+// }
 
 function imgdb($id){
   require "../includes/dbh.inc.php";

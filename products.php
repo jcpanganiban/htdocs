@@ -8,6 +8,31 @@
       echo "<script>window.alert('Please add an Item to cart first!')</script>";
     }
   }
+
+  function prodcat($cat){
+    require "./includes/dbh.inc.php";
+    $sql = "SELECT * FROM products WHERE proCat='$cat';";
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_assoc($result)){
+      echo $row['proId'];
+    }
+  }
+
+  function prodcard($name){
+    require "./includes/dbh.inc.php";
+    $sql = "SELECT proCat FROM products";
+    $result = mysqli_query($conn, $sql);
+    while($row = mysqli_fetch_assoc($result)){
+      echo $row['proCat'];
+    }
+  }
+
+  // function all(){
+
+  // }
+
+  prodcat("cat");
+  prodcard("Name");
 ?>
 
 <!DOCTYPE html>
